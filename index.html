@@ -7,8 +7,17 @@
 <script>
 	const width = document.getElementById("container").offsetWidth * 0.95,
 	    height = 1500,
-	    legendCellSize = 20,
-	    colors = ['#d4eac7', '#c6e3b5', '#b7dda2', '#a9d68f', '#9bcf7d', '#8cc86a', '#7ec157', '#77be4e', '#70ba45', '#65a83e', '#599537', '#4e8230', '#437029', '#385d22', '#2d4a1c', '#223815'];
+	    legendCellSize = 50,
+	    colors = ['#99c2ff',
+	    	'#80b3ff',
+	    	'#66a3ff',
+	    	'#4d94ff',
+	    	'#3385ff',
+	    	'#1a75ff',
+	    	'#0066ff',
+	    	'#005ce6',
+	    	'#0052cc',
+	    	'#0047b3'];
 
 	const svg = d3.select('#map').append("svg")
 	    .attr("id", "svg")
@@ -102,16 +111,16 @@
 	    .attr("x", (width / 2))
 	    .attr("y", 25)
 	    .attr("text-anchor", "middle")
-	    .style("fill", "#c1d3b8")
+	    .style("fill", "#000000")
 	    .style("font-weight", "300")
-	    .style("font-size", "16px")
+	    .style("font-size", "32px")
 	    .text("Nombre de personnes favorables à la création d'une maison de naissance à Mulhouse");
 
 	svg.append("text")
 	    .attr("x", (width / 2))
 	    .attr("y", 50)
 	    .attr("text-anchor", "middle")
-	    .style("fill", "#929292")
+	    .style("fill", "#000000")
 	    .style("font-weight", "200")
 	    .style("font-size", "12px")
 	    .text("(source : Questionnaire 2020-2021)");
@@ -150,7 +159,8 @@
 	        .append("path")
 	        .attr("d", path)
 	        .attr("id", d => "code" + d.properties.code)
-	        .attr("class", "country");
+	        .attr("class", "country")
+	        .style("fill", d => "#888888");
 	        
 	    // Le traitement du CSV est réalisé ici
 	    const min = d3.min(scores, d =>  +d.count), max = d3.max(scores, d =>  +d.count);
@@ -165,7 +175,7 @@
 		        .attr("scorecolor", quantile(+e.count))
 		        .style("fill", quantile(+e.count))
 		        .on("mouseover", function(d) {
-		            countryPath.style("fill", "#9966cc");
+		            countryPath.style("fill", "#ffff00");
 		            tooltip.style("display", null);
 		            tooltip.select('#tooltip-country')
 		                .text(e.name);
@@ -199,7 +209,7 @@
 		                .attr('transform', 'translate(' + (legendCellSize + 5) + ', ' + (d * legendCellSize) + ')')
 		                .style("display", null);
 		            d3.selectAll("path[scorecolor='" + colors[d] + "']")
-		                .style('fill', "#9966cc");
+		                .style('fill', "#ffff00");
 		        })
 		        .on("mouseout", function(d) {
 		            legend.select("#cursor")
